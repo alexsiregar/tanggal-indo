@@ -1,5 +1,7 @@
 <?php
 namespace Alex\TanggalIndo;
+use GuzzleHttp\Client;
+require 'vendor/autoload.php';
 
 class Main {
   public function tanggalIndo()
@@ -41,5 +43,26 @@ class Main {
         return $error_msg;
     }
     return $response;
+  }
+
+  public function versiGuzzle($nomor_hp, $message = '')
+  {
+    $client = new Client();
+
+    $response = $client->post('https://api.fonnte.com/send', [
+        'headers' => [
+            'Authorization' => 'Y+eStfgQcsm!Dpkkiypz',
+        ],
+        'form_params' => [
+            'target' => $nomor_hp,
+            'message' => $message ?? 'Haloo',
+            'countryCode' => '62',
+        ],
+    ]);
+
+    $body = $response->getBody();
+    $result = $body->getContents();
+
+    return $result;
   }
 }
