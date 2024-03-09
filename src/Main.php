@@ -38,8 +38,8 @@ class Main {
     curl_close($curl);
 
     if (isset($error_msg)) {
-        echo $error_msg;
+        return $error_msg;
     }
-    echo $response;
+    return $response;
   }
 }
